@@ -1,6 +1,25 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import "./style.css";
 const Temprature = () => {
+  const [cityname, setcityname] = useState("brisbane");
+
+  const getWeatherinfo = async () => {
+    try {
+      let url = `http://api.openweathermap.org/data/2.5/weather?q=${cityname}&APPID=35f3526354aa467824b3c20536732b26`;
+      const res = await fetch(url);
+      const data = res.json;
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(cityname);
+  };
+
+  useEffect(() => {
+    getWeatherinfo();
+  }, []);
+
   return (
     <>
       <div className="wrap">
@@ -9,9 +28,15 @@ const Temprature = () => {
             type="search"
             placeholder="Your City Name"
             autoFocus
+            value={cityname}
+            onChange={(e) => setcityname(e.target.value)}
             className="searchTerm"
           />
-          <button className="searchButton" type="button">
+          <button
+            className="searchButton"
+            type="button"
+            onClick={getWeatherinfo}
+          >
             Search
           </button>
         </div>
