@@ -4,6 +4,7 @@ import "./style.css";
 const Temprature = () => {
   const [cityname, setcityname] = useState("brisbane");
   const [tempInfo, settempInfo] = useState({});
+  const [weathertypeicon, setweathertypeicon] = useState("");
 
   const getWeatherinfo = async () => {
     try {
@@ -39,6 +40,31 @@ const Temprature = () => {
       console.log(error);
     }
   };
+  // useEffect(() => {
+  //   if (weather_type) {
+  //     switch (weather_type) {
+  //       case "Clouds":
+  //         setweathertypeicon("wi-day-cloudy");
+  //         break;
+  //       case "Rain":
+  //         setweathertypeicon("wi-day-rain");
+  //         break;
+  //       case "Haze":
+  //         setweathertypeicon("wi-day-haze");
+  //         break;
+  //       case "Snow":
+  //         setweathertypeicon("wi-day-snow");
+  //         break;
+  //       case "Smoke":
+  //         setweathertypeicon("wi-smoke");
+  //         break;
+  //       default:
+  //         setweathertypeicon("wi-day-sunny");
+  //         break;
+  //     }
+  //     console.log(weathertypeicon);
+  //   }
+  // }, [weather_type]);
 
   useEffect(() => {
     getWeatherinfo();
@@ -67,7 +93,7 @@ const Temprature = () => {
       </div>
       <div className="widget">
         <div className="weatherIcon">
-          <i className="wi wi-day-sunny"></i>
+          <i className="wi-day-sunny"></i>
         </div>
 
         <div className="weatherInfo">
@@ -82,7 +108,16 @@ const Temprature = () => {
             </div>
           </div>
         </div>
-        <div className="date">{new Date().toLocaleString()}</div>
+        {/* <div className="date">
+          {new Date().toLocaleString("en-GB", {
+            dateStyle: "medium",
+            timeStyle: "short",
+            hour12: true,
+          })}
+        </div> */}
+        <div className="date">
+          {new Date().toLocaleString("en-GB", { hour12: true })}
+        </div>
 
         {/* 4 COLUMN SECTON */}
         <div className="extra-temp">
