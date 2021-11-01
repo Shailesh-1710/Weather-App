@@ -40,31 +40,42 @@ const Temprature = () => {
       console.log(error);
     }
   };
-  // useEffect(() => {
-  //   if (weather_type) {
-  //     switch (weather_type) {
-  //       case "Clouds":
-  //         setweathertypeicon("wi-day-cloudy");
-  //         break;
-  //       case "Rain":
-  //         setweathertypeicon("wi-day-rain");
-  //         break;
-  //       case "Haze":
-  //         setweathertypeicon("wi-day-haze");
-  //         break;
-  //       case "Snow":
-  //         setweathertypeicon("wi-day-snow");
-  //         break;
-  //       case "Smoke":
-  //         setweathertypeicon("wi-smoke");
-  //         break;
-  //       default:
-  //         setweathertypeicon("wi-day-sunny");
-  //         break;
-  //     }
-  //     console.log(weathertypeicon);
-  //   }
-  // }, [weather_type]);
+  useEffect(() => {
+    if (tempInfo.weather_type) {
+      switch (tempInfo.weather_type) {
+        case "Clouds":
+          setweathertypeicon("wi-day-cloudy");
+          console.log("setweathertypeicon UPDATED");
+          break;
+        case "Rain":
+          setweathertypeicon("wi-day-rain");
+          console.log("setweathertypeicon UPDATED");
+          break;
+        case "Haze":
+          setweathertypeicon("wi-day-haze");
+          console.log("setweathertypeicon UPDATED");
+          break;
+        case "Snow":
+          setweathertypeicon("wi-day-snow");
+          console.log("setweathertypeicon UPDATED");
+          break;
+        case "Smoke":
+          setweathertypeicon("wi-smoke");
+          console.log("setweathertypeicon UPDATED");
+          break;
+        case "Clear":
+          setweathertypeicon("wi-cloud");
+          console.log("setweathertypeicon UPDATED");
+          break;
+
+        default:
+          setweathertypeicon("wi-day-sunny");
+          console.log("setweathertypeicon UPDATED");
+          break;
+      }
+      console.log(weathertypeicon);
+    }
+  }, [tempInfo.weather_type]);
 
   useEffect(() => {
     getWeatherinfo();
@@ -93,7 +104,7 @@ const Temprature = () => {
       </div>
       <div className="widget">
         <div className="weatherIcon">
-          <i className="wi-day-sunny"></i>
+          <i className={`wi ${weathertypeicon}`}></i>
         </div>
 
         <div className="weatherInfo">
