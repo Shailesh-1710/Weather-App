@@ -20,7 +20,7 @@ const Temprature = () => {
       var { sunset } = data.sys;
       const sunset_time = new Date(sunset * 1000);
       sunset = sunset_time.toLocaleTimeString();
-      console.log(sunset_time.toLocaleTimeString());
+      // console.log(sunset_time.toLocaleTimeString());
       // sunrise = new Date(sunrise.toLocaleString);
 
       const weatherInfo = {
@@ -45,35 +45,34 @@ const Temprature = () => {
       switch (tempInfo.weather_type) {
         case "Clouds":
           setweathertypeicon("wi-day-cloudy");
-          console.log("setweathertypeicon UPDATED");
+
           break;
         case "Rain":
           setweathertypeicon("wi-day-rain");
-          console.log("setweathertypeicon UPDATED");
+
           break;
         case "Haze":
           setweathertypeicon("wi-day-haze");
-          console.log("setweathertypeicon UPDATED");
+
           break;
         case "Snow":
           setweathertypeicon("wi-day-snow");
-          console.log("setweathertypeicon UPDATED");
+
           break;
         case "Smoke":
           setweathertypeicon("wi-smoke");
-          console.log("setweathertypeicon UPDATED");
+
           break;
         case "Clear":
           setweathertypeicon("wi-cloud");
-          console.log("setweathertypeicon UPDATED");
+
           break;
 
         default:
           setweathertypeicon("wi-day-sunny");
-          console.log("setweathertypeicon UPDATED");
+
           break;
       }
-      console.log(weathertypeicon);
     }
   }, [tempInfo.weather_type]);
 
