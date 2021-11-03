@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# React Based Weather App
 
 Openweather Api based React app.
 
