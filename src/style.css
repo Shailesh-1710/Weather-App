@@ -92,6 +92,7 @@ body {
 }
 .widget .date {
   flex: 0 0 30%;
+  line-height: 175%;
   height: 40%;
   background: #70c1b3;
   display: flex;

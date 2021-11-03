@@ -1,14 +1,17 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./style.css";
+require("dotenv").config();
+
 const Temprature = () => {
   const [cityname, setcityname] = useState("brisbane");
   const [tempInfo, settempInfo] = useState({});
   const [weathertypeicon, setweathertypeicon] = useState("");
+  const api = process.env.REACT_APP_WAPI;
 
   const getWeatherinfo = async () => {
     try {
-      let url = `http://api.openweathermap.org/data/2.5/weather?q=${cityname}&units=metric&APPID=35f3526354aa467824b3c20536732b26`;
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&units=metric&APPID=${api}`;
       const res = await fetch(url);
       const data = await res.json();
       // console.log(data);
