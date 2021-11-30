@@ -2,6 +2,8 @@
 
 Openweather Api based React app.
 
+Google Places Api based place Autofill searchbox.
+
 <ul>
 <li>
 Live Search Integrated.<br> 
