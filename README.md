@@ -7,7 +7,7 @@ Openweather Api based React app.
 Live Search Integrated.
 Live Search Implemented.
 Location Search also added.
-
+  
 </li>
 </ul>
 
