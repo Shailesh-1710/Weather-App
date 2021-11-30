@@ -4,11 +4,16 @@ Openweather Api based React app.
 
 <ul>
 <li>
-Live Search Integrated.<br>
-Live Search Implemented.<br>
-Location Search also added.<br>
-  
+Live Search Integrated.<br> 
 </li>
+<li>
+Live Search Implemented.<br> 
+</li>
+<li>
+Location Search also added..<br> 
+</li>
+
+<br>
 </ul>
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
