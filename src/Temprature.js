@@ -1,20 +1,36 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import "./style.css";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
 require("dotenv").config();
 
 const Temprature = () => {
-  const [cityname, setcityname] = useState("brisbane");
+  const api = process.env.REACT_APP_WAPI;
   const [tempInfo, settempInfo] = useState({});
   const [weathertypeicon, setweathertypeicon] = useState("");
-  const api = process.env.REACT_APP_WAPI;
+  const [searchValue, setsearchValue] = useState("");
 
-  const getWeatherinfo = async () => {
+  const handleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+    const latlng = await getLatLng(results[0]);
+    // console.log(latlng);
+    // console.log(latlng.lat, latlng.lng);
+    // // setlong(latlng.lng);
+    // // setlat(latlng.lat);
+
+    getWeatherinfo(latlng.lat, latlng.lng);
+  };
+
+  const getWeatherinfo = async (proplat, proplong) => {
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&units=metric&APPID=${api}`;
+      let url = `http://api.openweathermap.org/data/2.5/weather?lat=${proplat}&lon=${proplong}&units=metric&appid=${api}`;
+
+      // console.log(proplat, proplong);
       const res = await fetch(url);
       const data = await res.json();
-      // console.log(data);
+
       const { temp, pressure, humidity, temp_min, temp_max } = data.main;
       const { main: weather_type } = data.weather[0];
       const { speed } = data.wind;
@@ -26,6 +42,37 @@ const Temprature = () => {
       // console.log(sunset_time.toLocaleTimeString());
       // sunrise = new Date(sunrise.toLocaleString);
 
+      if (weather_type) {
+        switch (weather_type) {
+          case "Clouds":
+            setweathertypeicon("wi-day-cloudy");
+
+            break;
+          case "Rain":
+            setweathertypeicon("wi-day-rain");
+
+            break;
+          case "Haze":
+            setweathertypeicon("wi-day-haze");
+
+            break;
+          case "Snow":
+            setweathertypeicon("wi-day-snow");
+
+            break;
+          case "Smoke":
+            setweathertypeicon("wi-smoke");
+
+            break;
+          case "Clear":
+            setweathertypeicon("wi-cloud");
+            break;
+
+          default:
+            setweathertypeicon("wi-day-sunny");
+            break;
+        }
+      }
       const weatherInfo = {
         temp,
         pressure,
@@ -40,69 +87,65 @@ const Temprature = () => {
       };
       settempInfo(weatherInfo);
     } catch (error) {
+      console.log("ERROR COUGHT IN getWeatherinfo FUNC ");
       console.log(error);
     }
   };
-  useEffect(() => {
-    if (tempInfo.weather_type) {
-      switch (tempInfo.weather_type) {
-        case "Clouds":
-          setweathertypeicon("wi-day-cloudy");
-
-          break;
-        case "Rain":
-          setweathertypeicon("wi-day-rain");
-
-          break;
-        case "Haze":
-          setweathertypeicon("wi-day-haze");
-
-          break;
-        case "Snow":
-          setweathertypeicon("wi-day-snow");
-
-          break;
-        case "Smoke":
-          setweathertypeicon("wi-smoke");
-
-          break;
-        case "Clear":
-          setweathertypeicon("wi-cloud");
-
-          break;
-
-        default:
-          setweathertypeicon("wi-day-sunny");
-
-          break;
-      }
-    }
-  }, [tempInfo.weather_type]);
 
   useEffect(() => {
-    getWeatherinfo();
-  });
+    navigator.geolocation.getCurrentPosition(function (position) {
+      // console.log(position.coords.latitude, ",", position.coords.longitude);
+      getWeatherinfo(position.coords.latitude, position.coords.longitude);
+
+      // setlat(position.coords.latitude);
+      // setlong(position.coords.longitude);
+    });
+  }, []);
 
   return (
     <>
+      {/*-------------- SEARCHBAR DIV---------- */}
       <div className="wrap">
-        <div className="search">
-          <input
-            type="search"
-            placeholder="Your City Name"
-            autoFocus
-            value={cityname}
-            onChange={(e) => setcityname(e.target.value)}
-            className="searchTerm"
-          />
-          <button
-            className="searchButton"
-            type="button"
-            onClick={getWeatherinfo}
+        <div>
+          {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDow80WBiuRUXuLxkkAt6kL7JaeYxByfDo&libraries=places" /> */}
+          <PlacesAutocomplete
+            onChange={setsearchValue}
+            onSelect={handleSelect}
+            value={searchValue}
           >
-            Search
-          </button>
+            {({
+              getInputProps,
+              suggestions,
+              getSuggestionItemProps,
+              loading,
+            }) => (
+              <div>
+                <input
+                  className="searchbar"
+                  {...getInputProps({ placeholder: "Please Type City Name" })}
+                />
+                <div>
+                  {loading ? <div>Loading</div> : null}
+                  {suggestions.map((suggestion) => {
+                    return (
+                      <div
+                        key={suggestion.placeId}
+                        className="suggestions"
+                        {...getSuggestionItemProps(suggestion)}
+                      >
+                        {suggestion.description}
+                        {/* {console.log(suggestion)} */}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </PlacesAutocomplete>
         </div>
+        {/*-------------- SEARCHBAR DIV  ENDED ---------- */}
+
+        {/*-------------- WIDGET BOX DIV  ---------- */}
       </div>
       <div className="widget">
         <div className="weatherIcon">
@@ -183,6 +226,7 @@ const Temprature = () => {
           </div>
         </div>
       </div>
+      {/* -------------- WIDGET BOX DIV  ENDED ---------- */}
     </>
   );
 };
