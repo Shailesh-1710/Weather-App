@@ -4,15 +4,17 @@ Openweather Api based React app.
 
 Google Places Api based place Autofill searchbox.
 
+# Features
+
 <ul>
 <li>
+Weather By address.<br> 
+</li>
+<li>
+Weather By Location.<br> 
+</li>
+<li>
 Live Search Integrated.<br> 
-</li>
-<li>
-Live Search Implemented.<br> 
-</li>
-<li>
-Location Search also added..<br> 
 </li>
 
 <br>
