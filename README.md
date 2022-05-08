@@ -2,7 +2,7 @@
 
 Openweather Api based React app.
 
-Google Places Api based place Autofill searchbox.
+Google places and search atutofill API integration
 
 # Features
 
