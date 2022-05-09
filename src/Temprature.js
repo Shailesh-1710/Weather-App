@@ -90,7 +90,7 @@ const Temprature = () => {
         }
       }
     } catch (error) {
-      console.log("ERROR COUGHT IN getWeatherinfo FUNC ");
+      console.log("ERROR COUGHT IN getWeatherinfo FUNCTION ");
       console.log(error);
     }
   };
@@ -107,7 +107,6 @@ const Temprature = () => {
       getWeatherinfo(position.coords.latitude, position.coords.longitude);
       getTimeInfo(position.coords.latitude, position.coords.longitude);
     });
-
     // eslint-disable-next-line
   }, []);
 
